@@ -21,15 +21,23 @@ module Kernel
   end
 
   def readlines(rs=$/)
-    lines = []
-    loop do
-      line = gets rs
-      if line.nil? then
-        break
+    begin
+      ARGF.readlines rs
+    rescue NameError
+      unless $stdin.nil? then
+        $stdin.readline rs
+      else
+        lines = []
+        loop do
+          line = gets rs
+          if line.nil? then
+            break
+          end
+    	    lines << line
+        end
+        lines
       end
-	  lines << line
     end
-    lines
   end
 
 end
