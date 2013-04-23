@@ -33,7 +33,7 @@ module Kernel
           if line.nil? then
             break
           end
-    	    lines << line
+          lines << line
         end
         lines
       end
