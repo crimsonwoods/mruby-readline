@@ -16,10 +16,10 @@ mrb_new_str_placement(mrb_state *mrb, char *cstr, size_t const len)
     return mrb_nil_value();
   }
 
-  s->len = len;
-  s->aux.capa = len;
-  s->ptr = cstr;
-  s->ptr[len] = '\0';
+  s->as.heap.len = len;
+  s->as.heap.aux.capa = len;
+  s->as.heap.ptr = cstr;
+  s->as.heap.ptr[len] = '\0';
 
   return mrb_obj_value(s);
 }
@@ -170,7 +170,7 @@ mrb_mruby_readline_gem_init(mrb_state *mrb)
   struct RClass *krn;
 
   krn = mrb->kernel_module;
-  mrb_define_module_function(mrb, krn, "gets", mrb_gets, ARGS_OPT(1));
+  mrb_define_module_function(mrb, krn, "gets", mrb_gets, MRB_ARGS_OPT(1));
 
   if (!mrb_class_defined(mrb, "EOFError")) {
     struct RClass *io_err;
